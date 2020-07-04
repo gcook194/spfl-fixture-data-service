@@ -1,5 +1,7 @@
 package com.gavincook.spfl.model;
 
+import java.time.ZonedDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,8 +28,8 @@ public class Fixture {
 	@Column(name="league_resource_id")
 	private Long leagueResourceId; 
 	
-	@Column(name="fixture_date")
-	private String fixtureDate; 
+	@Column(name="fixture_date_time")
+	private ZonedDateTime fixtureDateTime;
 	
 	@Column(name="referee")
 	private String referee; 

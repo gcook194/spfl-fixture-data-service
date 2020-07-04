@@ -7,12 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gavincook.spfl.Constants;
 import com.gavincook.spfl.model.Fixture;
 import com.gavincook.spfl.model.FixtureListResponse;
 import com.gavincook.spfl.web.dao.FixtureRepository;
-import com.gavincook.spfl.Constants;
 
 @RestController
 @RequestMapping("fixtures")
@@ -127,12 +128,18 @@ public class FixtureController {
 	}
 	
 	@GetMapping("/status/{status}/league/{leagueResourceId}")
-	public ResponseEntity<FixtureListResponse> getFixtureByStatusAndLeague(@PathVariable String status, @PathVariable Long leagueResourceId) {
+	public ResponseEntity<FixtureListResponse> getFixtureByStatusAndLeague(@RequestParam(required = false) String fixtureDateDesc, @PathVariable String status, @PathVariable Long leagueResourceId) {
 		
 		FixtureListResponse response = new FixtureListResponse();
 		
-		List<Fixture> fixtures = fixtureRepository.findByStatusAndLeagueResourceId(status, leagueResourceId);
+		List<Fixture> fixtures; 
 		
+		if (Boolean.valueOf(fixtureDateDesc)) {
+			fixtures = fixtureRepository.findByStatusAndLeagueResourceIdOrderByFixtureDateTimeDesc(status, leagueResourceId);
+		} else {
+			fixtures = fixtureRepository.findByStatusAndLeagueResourceId(status, leagueResourceId);
+		}
+			
 		if (fixtures != null) {
 			response.setFixtures(fixtures);
 			response.setResults(fixtures.size());
