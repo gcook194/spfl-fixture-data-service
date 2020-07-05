@@ -1,5 +1,6 @@
 package com.gavincook.spfl.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,12 +133,24 @@ public class FixtureController {
 		
 		FixtureListResponse response = new FixtureListResponse();
 		
+		List<String> statuses = new ArrayList<>();
+		
+		//TODO move to manager/service class
+		if (status.equals("unplayed")) {
+			statuses.add("CANC");
+			statuses.add("NS");
+			statuses.add("PST");
+		} else {
+			statuses.add(status);
+		}
+		// END TODO
+		
 		List<Fixture> fixtures; 
 		
 		if (Boolean.valueOf(fixtureDateDesc)) {
-			fixtures = fixtureRepository.findByStatusAndLeagueResourceIdOrderByFixtureDateTimeDesc(status, leagueResourceId);
+			fixtures = fixtureRepository.findByStatusInAndLeagueResourceIdOrderByFixtureDateTimeDesc(statuses, leagueResourceId);
 		} else {
-			fixtures = fixtureRepository.findByStatusAndLeagueResourceId(status, leagueResourceId);
+			fixtures = fixtureRepository.findByStatusInAndLeagueResourceId(statuses, leagueResourceId);
 		}
 			
 		if (fixtures != null) {

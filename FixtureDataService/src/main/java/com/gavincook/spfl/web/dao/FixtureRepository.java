@@ -19,5 +19,9 @@ public interface FixtureRepository extends JpaRepository<Fixture, Long> {
 	List<Fixture> findByStatusAndLeagueResourceId(String status, Long leagueResourceId);
 
 	List<Fixture> findByStatusAndLeagueResourceIdOrderByFixtureDateTimeDesc(String status, Long leagueResourceId);
+	
+	List<Fixture> findByStatusInAndLeagueResourceId(List<String> statusList, Long leagueResourceId);
+	
+	List<Fixture> findByStatusInAndLeagueResourceIdOrderByFixtureDateTimeDesc(List<String> statusList, Long leagueResourceId);
 
 }
