@@ -1,4 +1,4 @@
-package com.gavincook.spfl.web.dao;
+package com.gavincook.spfl.dao;
 
 import java.util.List;
 

@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gavincook.spfl.Constants;
+import com.gavincook.spfl.dao.FixtureRepository;
 import com.gavincook.spfl.model.Fixture;
 import com.gavincook.spfl.model.FixtureListResponse;
-import com.gavincook.spfl.web.dao.FixtureRepository;
 
 @RestController
 @RequestMapping("fixtures")
